@@ -6,11 +6,10 @@ public class LeapYear {
      * either divisible by 400 or divisible by 4 but not divisible by 100
      */
     public static boolean isLeapYear(int year) {
-        if ((year % 400 == 0) || (year % 4 ==0 && year % 100 != 0)) {
+        if ((year % 400 == 0) || (year % 4 == 0 && year % 100 != 0)) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;   
     }
 
     /** Calls isLeapYear to print correct statement.
