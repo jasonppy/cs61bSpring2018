@@ -76,11 +76,29 @@ public class IntList {
 		return L;
 	}
 
+	// public static IntList addFirst(IntList L, int x) {
+	// 	L.rest = L;
+	// 	L.first = x;
+	// 	return L;
+	// }
+
+	public void addLast(int x) {
+		if (this.rest == null) {
+			this.rest = new IntList(x, null);
+		} else{
+			this.rest.addLast(x);	
+		}
+	}
+
 	public static void main(String[] args) {
 		IntList L = new IntList(5, new IntList(7, new IntList(9, null)));
 		System.out.println(L.size());
-		System.out.println(L.get(2));
+		L.addLast(11);
+		addFirst(L, 1);
+		System.out.println(L.size());
+		System.out.println(L.get(3));
 		System.out.println(dincrList(L, 1).get(1));
-		System.out.println(incrList(L, 1).get(1));
+		// System.out.println(incrList(L, 1).get(1));
+		// System.out.println(L.addFirst(3).get());
 	}
 }
