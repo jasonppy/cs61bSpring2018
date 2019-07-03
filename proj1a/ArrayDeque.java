@@ -18,6 +18,14 @@ public class ArrayDeque<Item> {
         return size;
     }
 
+    public void printDeque() {
+        int current = plusOne(nextFirst);
+        while(current != nextLast) {
+            System.out.println(items[current]);
+            current = plusOne(current);
+        }
+    }
+
     public void resize(int cap) {
         Item[] a = (Item[]) new Object[cap];
         int current = plusOne(nextFirst);
@@ -29,7 +37,7 @@ public class ArrayDeque<Item> {
     }
 
     public boolean isEmpty() {
-        if (size == 0) {
+        if(size == 0) {
             return true;
         }
         return false;
@@ -52,24 +60,25 @@ public class ArrayDeque<Item> {
     }
 
     public void addFirst(Item x) {
-        if (size == items.length - 1) {
+        if(size == items.length - 1) {
             resize(size * 2);
         }
-
+        size++;
         items[nextFirst] = x;
         nextFirst = minusOne(nextFirst);
     }
 
     public void addLast(Item x) {
-        if (size == items.length - 1) {
+        if(size == items.length - 1) {
             resize(size * 2);
         }
+        size++;
         items[nextLast] = x;
         nextLast = plusOne(nextLast);
     }
 
     public Item removeFirst() {
-        if (size == 0) {
+        if(size == 0) {
             return null;
         }
         size--;
@@ -77,28 +86,28 @@ public class ArrayDeque<Item> {
         Item item = items[first];
         items[first] = null;
         nextFirst = first;
-        if (items.length >= 16 && size/items.length < usageFactor) {
+        if(items.length >= 16 && size/items.length < usageFactor) {
             resize(Math.toIntExact(Math.round(size * usageFactor)));
         }
         return item;
     }
 
     public Item removeLast() {
-        if (size == 0) {
+        if(size == 0) {
             return null;
         }
         size--;
         int last = minusOne(nextLast);
         Item item = items[last];
         items[last] = null;
-        if (items.length >= 16 && size/items.length < usageFactor) {
+        if(items.length >= 16 && size/items.length < usageFactor) {
             resize(Math.toIntExact(Math.round(size * usageFactor)));
         }
         return item;
     }
 
     public Item get(int index) {
-        if (index > size - 1) {
+        if(index > size - 1) {
             return null;
         }
         int current = plusOne(nextFirst);
