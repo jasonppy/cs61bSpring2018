@@ -6,7 +6,7 @@
  *  @author: Jason
  *  */
 public class LinkedListDeque<T> {
-    public class Node {
+    private class Node {
         private Node prev;
         private T item;
         private Node next;
@@ -27,11 +27,11 @@ public class LinkedListDeque<T> {
             }
         }
     }
-    public int size;
-    public Node sentinel;
-    public boolean isEmpty() {
+    private int size;
+    private Node sentinel;
+   public boolean isEmpty() {
 //        if (sentinel.next == sentinel) {
-        if (size == 0) {
+        if(size == 0) {
             return true;
         }
         return false;

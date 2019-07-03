@@ -1,14 +1,12 @@
-
-
-public class ArrayDeque<Item> {
-    public Item[] items;
-    public int size;
-    public int nextFirst;
-    public int nextLast;
-    public double usageFactor = 0.25;
+public class ArrayDeque<T> {
+    private T[] items;
+    private int size;
+    private int nextFirst;
+    private int nextLast;
+    private double usageFactor = 0.25;
 
     public ArrayDeque() {
-        items = (Item[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         nextFirst = 0;
         nextLast = 1;
@@ -27,7 +25,7 @@ public class ArrayDeque<Item> {
     }
 
     public void resize(int cap) {
-        Item[] a = (Item[]) new Object[cap];
+        T[] a = (T[]) new Object[cap];
         int current = plusOne(nextFirst);
         for (int i = 0; i < size - 1; i++) {
             a[i] = items[current];
@@ -59,7 +57,7 @@ public class ArrayDeque<Item> {
         return index;
     }
 
-    public void addFirst(Item x) {
+    public void addFirst(T x) {
         if(size == items.length - 1) {
             resize(size * 2);
         }
@@ -68,7 +66,7 @@ public class ArrayDeque<Item> {
         nextFirst = minusOne(nextFirst);
     }
 
-    public void addLast(Item x) {
+    public void addLast(T x) {
         if(size == items.length - 1) {
             resize(size * 2);
         }
@@ -77,13 +75,13 @@ public class ArrayDeque<Item> {
         nextLast = plusOne(nextLast);
     }
 
-    public Item removeFirst() {
+    public T removeFirst() {
         if(size == 0) {
             return null;
         }
         size--;
         int first = plusOne(nextFirst);
-        Item item = items[first];
+        T item = items[first];
         items[first] = null;
         nextFirst = first;
         if(items.length >= 16 && size/items.length < usageFactor) {
@@ -92,13 +90,13 @@ public class ArrayDeque<Item> {
         return item;
     }
 
-    public Item removeLast() {
+    public T removeLast() {
         if(size == 0) {
             return null;
         }
         size--;
         int last = minusOne(nextLast);
-        Item item = items[last];
+        T item = items[last];
         items[last] = null;
         if(items.length >= 16 && size/items.length < usageFactor) {
             resize(Math.toIntExact(Math.round(size * usageFactor)));
@@ -106,7 +104,7 @@ public class ArrayDeque<Item> {
         return item;
     }
 
-    public Item get(int index) {
+    public T get(int index) {
         if(index > size - 1) {
             return null;
         }
