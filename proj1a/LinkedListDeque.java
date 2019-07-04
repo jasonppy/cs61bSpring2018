@@ -29,7 +29,7 @@ public class LinkedListDeque<T> {
     }
     private int size;
     private Node sentinel;
-   public boolean isEmpty() {
+    public boolean isEmpty() {
 //        if (sentinel.next == sentinel) {
         if(size == 0) {
             return true;
@@ -90,14 +90,14 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (index > size - 1){
+        if (index > size - 1) {
             return null;
         }
         int i = index;
         Node N = sentinel.next;
         while (i > 0) {
             N = N.next;
-            i --;
+            i--;
         }
         return N.item;
 

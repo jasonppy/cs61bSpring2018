@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 
 /** Performs some basic ArrayDeque tests. */
 public class ArrayDequeTest {
@@ -37,8 +36,8 @@ public class ArrayDequeTest {
      * && is the "and" operation. */
     public static void addIsEmptySizeTest() {
         System.out.println("Running add/isEmpty/Size test.");
-        System.out.println("Make sure to uncomment " +
-                "the lines below (and delete this print statement).");
+        System.out.println("Make sure to uncomment "
+                + "the lines below (and delete this print statement).");
 
         ArrayDeque<String> ad1 = new ArrayDeque<String>();
 
@@ -69,8 +68,8 @@ public class ArrayDequeTest {
 
         System.out.println("Running add/remove test.");
 
-        System.out.println("Make sure to uncomment the " +
-                "lines below (and delete this print statement).");
+        System.out.println("Make sure to uncomment the "
+                + "lines below (and delete this print statement).");
 
         ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
         // should be empty
@@ -87,10 +86,18 @@ public class ArrayDequeTest {
         ad1.addFirst(2);
         ad1.addFirst(1);
         ad1.addLast(3);
-        for (int i = 4; i < 12; i++) {
+        for (int i = 4; i < 40; i++) {
             ad1.addLast(i);
         }
-        ad1.addFirst(0);
+        ad1.printDeque();
+
+        for (int i = 0; i < 20; i++) {
+            ad1.removeLast();
+        }
+
+        for (int i = 0; i < 5; i++) {
+            ad1.removeFirst();
+        }
         ad1.printDeque();
 
         printTestStatus(passed);

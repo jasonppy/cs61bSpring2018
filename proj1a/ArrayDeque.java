@@ -27,7 +27,7 @@ public class ArrayDeque<T> {
     private void resize(int cap) {
         T[] a = (T[]) new Object[cap];
         int current = plusOne(nextFirst);
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             a[i] = items[current];
             current = plusOne(current);
         }
@@ -44,7 +44,7 @@ public class ArrayDeque<T> {
     }
 
     private int plusOne(int index) {
-        index ++;
+        index++;
         if (index == items.length) {
             index = 0;
         }
@@ -52,7 +52,7 @@ public class ArrayDeque<T> {
     }
 
     private int minusOne(int index) {
-        index --;
+        index--;
         if (index < 0) {
             index = items.length - 1;
         }
@@ -63,7 +63,7 @@ public class ArrayDeque<T> {
         if (size == items.length - 1) {
             resize(size * 2);
         }
-        size ++;
+        size++;
         items[nextFirst] = x;
         nextFirst = minusOne(nextFirst);
     }
@@ -72,7 +72,7 @@ public class ArrayDeque<T> {
         if (size == items.length - 1) {
             resize(size * 2);
         }
-        size ++;
+        size++;
         items[nextLast] = x;
         nextLast = plusOne(nextLast);
     }
@@ -81,13 +81,13 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size --;
-        int first = plusOne(nextFirst);
-        T item = items[first];
-        items[first] = null;
-        nextFirst = first;
-        if(items.length >= 16 && size / items.length < usageFactor) {
-            resize(Math.toIntExact(Math.round(size * usageFactor)));
+        size--;
+        nextFirst = plusOne(nextFirst);
+        T item = items[nextFirst];
+        items[nextFirst] = null;
+        double actualFactor = size * 1.0 / items.length;
+        if (items.length >= 16 && actualFactor < usageFactor) {
+            resize(Math.toIntExact(Math.round(items.length * usageFactor + 1.0)));
         }
         return item;
     }
@@ -96,12 +96,13 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size --;
-        int last = minusOne(nextLast);
-        T item = items[last];
-        items[last] = null;
-        if(items.length >= 16 && size / items.length < usageFactor) {
-            resize(Math.toIntExact(Math.round(size * usageFactor)));
+        size--;
+        nextLast = minusOne(nextLast);
+        T item = items[nextLast];
+        items[nextLast] = null;
+        double actualFactor = size * 1.0 / items.length;
+        if (items.length >= 16 && actualFactor < usageFactor) {
+            resize(Math.toIntExact(Math.round(items.length * usageFactor + 1.0)));
         }
         return item;
     }
@@ -113,7 +114,7 @@ public class ArrayDeque<T> {
         int current = plusOne(nextFirst);
         while (index > 0) {
             current = plusOne(current);
-            index --;
+            index--;
         }
         return items[current];
     }
