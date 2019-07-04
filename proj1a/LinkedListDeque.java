@@ -97,7 +97,7 @@ public class LinkedListDeque<T> {
         Node N = sentinel.next;
         while (i > 0) {
             N = N.next;
-            i--;
+            i --;
         }
         return N.item;
 

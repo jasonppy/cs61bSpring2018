@@ -24,7 +24,7 @@ public class ArrayDeque<T> {
         }
     }
 
-    public void resize(int cap) {
+    private void resize(int cap) {
         T[] a = (T[]) new Object[cap];
         int current = plusOne(nextFirst);
         for (int i = 0; i < size - 1; i++) {
@@ -43,16 +43,16 @@ public class ArrayDeque<T> {
         return false;
     }
 
-    public int plusOne(int index) {
-        index++;
+    private int plusOne(int index) {
+        index ++;
         if (index == items.length) {
             index = 0;
         }
         return index;
     }
 
-    public int minusOne(int index) {
-        index--;
+    private int minusOne(int index) {
+        index --;
         if (index < 0) {
             index = items.length - 1;
         }
@@ -63,7 +63,7 @@ public class ArrayDeque<T> {
         if (size == items.length - 1) {
             resize(size * 2);
         }
-        size++;
+        size ++;
         items[nextFirst] = x;
         nextFirst = minusOne(nextFirst);
     }
@@ -72,7 +72,7 @@ public class ArrayDeque<T> {
         if (size == items.length - 1) {
             resize(size * 2);
         }
-        size++;
+        size ++;
         items[nextLast] = x;
         nextLast = plusOne(nextLast);
     }
@@ -81,7 +81,7 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size--;
+        size --;
         int first = plusOne(nextFirst);
         T item = items[first];
         items[first] = null;
@@ -96,7 +96,7 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         }
-        size--;
+        size --;
         int last = minusOne(nextLast);
         T item = items[last];
         items[last] = null;
@@ -113,7 +113,7 @@ public class ArrayDeque<T> {
         int current = plusOne(nextFirst);
         while (index > 0) {
             current = plusOne(current);
-            index--;
+            index --;
         }
         return items[current];
     }
