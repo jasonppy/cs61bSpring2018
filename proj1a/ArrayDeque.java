@@ -18,7 +18,7 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         int current = plusOne(nextFirst);
-        while(current != nextLast) {
+        while (current != nextLast) {
             System.out.println(items[current]);
             current = plusOne(current);
         }
@@ -31,11 +31,13 @@ public class ArrayDeque<T> {
             a[i] = items[current];
             current = plusOne(current);
         }
+        nextFirst = a.length - 1;
+        nextLast = size;
         items = a;
     }
 
     public boolean isEmpty() {
-        if(size == 0) {
+        if (size == 0) {
             return true;
         }
         return false;
@@ -43,7 +45,7 @@ public class ArrayDeque<T> {
 
     public int plusOne(int index) {
         index++;
-        if(index == items.length) {
+        if (index == items.length) {
             index = 0;
         }
         return index;
@@ -51,14 +53,14 @@ public class ArrayDeque<T> {
 
     public int minusOne(int index) {
         index--;
-        if(index < 0) {
+        if (index < 0) {
             index = items.length - 1;
         }
         return index;
     }
 
     public void addFirst(T x) {
-        if(size == items.length - 1) {
+        if (size == items.length - 1) {
             resize(size * 2);
         }
         size++;
@@ -67,7 +69,7 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T x) {
-        if(size == items.length - 1) {
+        if (size == items.length - 1) {
             resize(size * 2);
         }
         size++;
@@ -76,7 +78,7 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         size--;
@@ -84,34 +86,34 @@ public class ArrayDeque<T> {
         T item = items[first];
         items[first] = null;
         nextFirst = first;
-        if(items.length >= 16 && size/items.length < usageFactor) {
+        if(items.length >= 16 && size / items.length < usageFactor) {
             resize(Math.toIntExact(Math.round(size * usageFactor)));
         }
         return item;
     }
 
     public T removeLast() {
-        if(size == 0) {
+        if (size == 0) {
             return null;
         }
         size--;
         int last = minusOne(nextLast);
         T item = items[last];
         items[last] = null;
-        if(items.length >= 16 && size/items.length < usageFactor) {
+        if(items.length >= 16 && size / items.length < usageFactor) {
             resize(Math.toIntExact(Math.round(size * usageFactor)));
         }
         return item;
     }
 
     public T get(int index) {
-        if(index > size - 1) {
+        if (index > size - 1) {
             return null;
         }
         int current = plusOne(nextFirst);
-        while(index > 0) {
+        while (index > 0) {
             current = plusOne(current);
-            index --;
+            index--;
         }
         return items[current];
     }

@@ -82,6 +82,16 @@ public class ArrayDequeTest {
         // should be empty
         passed = checkEmpty(true, ad1.isEmpty()) && passed;
 
+        ad1.addFirst(2);
+        ad1.addFirst(1);
+        ad1.addLast(3);
+        for (int i = 4; i < 12; i++) {
+            ad1.addLast(i);
+        }
+//        ad1.removeFirst();
+        ad1.addFirst(0);
+        ad1.printDeque();
+
         printTestStatus(passed);
 
     }
