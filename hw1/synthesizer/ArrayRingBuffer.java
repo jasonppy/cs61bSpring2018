@@ -20,8 +20,10 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> implements Itera
         //       you'll need to use this.capacity to set the capacity.
         rb = (T[]) new Object[capacity];
         this.capacity = capacity;
+        fillCount = 0;
         first = 0;
         last = 0;
+
     }
 
     private int plusOne(int index) {
