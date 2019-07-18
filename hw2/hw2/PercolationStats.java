@@ -7,7 +7,7 @@ public class PercolationStats {
     private int[] results;
     public PercolationStats(int N, int T, PercolationFactory pf) {
         //perform T independent experiments on an N-by-N grid
-        results = int[N]
+        results = new int[T];
         for (int t = 0; t < T; t++) {
             Percolation perc = pf.make(N);
             while (!perc.percolates()) {
@@ -36,6 +36,12 @@ public class PercolationStats {
         // high endpoint of 95% confidence interval
         return mean() + stddev() / 1.96;
     }
+
+//    public static void main(String[] args) {
+//        PercolationFactory pf = new PercolationFactory();
+//        PercolationStats stat = new PercolationStats(100, 1000, pf);
+//        System.out.println(stat.mean()/10000.0);
+//    }
 
 
 }

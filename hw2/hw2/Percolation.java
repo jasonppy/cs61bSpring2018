@@ -28,8 +28,8 @@ public class Percolation {
 
     public void open(int row, int col) {
         // open the site (row, col) if it is not open already
-        if (row >= N - 1 || row < 0 || col >= N - 1 || col < 0) {
-            throw new IndexOutOfBoundsException("invalid row or col index")
+        if (row >= N  || row < 0 || col >= N  || col < 0) {
+            throw new IndexOutOfBoundsException("invalid row or col index");
         }
         if (!isOpen(row, col)) {
             cnt += 1;
@@ -58,15 +58,15 @@ public class Percolation {
     }
 
     public boolean isOpen(int row, int col) {
-        if (row >= N - 1 || row < 0 || col >= N - 1 || col < 0) {
-            throw new IndexOutOfBoundsException("invalid row or col index")
+        if (row >= N  || row < 0 || col >= N  || col < 0) {
+            throw new IndexOutOfBoundsException("invalid row or col index");
         }
         return s[row][col] == 1;
     }
 
     public boolean isFull(int row, int col) {
-        if (row >= N - 1 || row < 0 || col >= N - 1 || col < 0) {
-            throw new IndexOutOfBoundsException("invalid row or col index")
+        if (row >= N  || row < 0 || col >= N  || col < 0) {
+            throw new IndexOutOfBoundsException("invalid row or col index");
         }
         // is the site (row, col) full?
         return uf.connected(xyTo1D(row, col), uf.find(N * N));
@@ -82,10 +82,5 @@ public class Percolation {
         return uf.connected(uf.find(N * N), uf.find(N * N + 1));
     }
 
-//    public static void main(String[] args) {
-//        // use for unit testing (not required)
-//        Percolation p = new Percolation(10);
-//        System.out.println(p.cnt);
-//    }
 
 }
