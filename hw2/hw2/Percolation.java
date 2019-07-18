@@ -36,24 +36,25 @@ public class Percolation {
             s[row][col] = 1;
             if (row == 0) {
                 uf.union(xyTo1D(row, col), uf.find(N * N));
-                if (isOpen(row + 1, col)) { uf.union(xyTo1D(row, col), xyTo1D(row, col + 1)); }
-            } else if (row == N - 1) {
-                uf.union(xyTo1D(row, col), uf.find(N * N + 1));
-                if (isOpen(row - 1, col)) { uf.union(xyTo1D(row, col), xyTo1D(row, col - 1)); }
-            } else {
-                if (isOpen(row + 1, col)) {
-                    uf.union(xyTo1D(row, col), xyTo1D(row + 1, col));
-                }
-                if (isOpen(row - 1, col)) {
-                    uf.union(xyTo1D(row, col), xyTo1D(row - 1, col));
-                }
-                if (col + 1 < N && isOpen(row, col + 1)) {
-                    uf.union(xyTo1D(row, col), xyTo1D(row, col + 1));
-                }
-                if (col - 1 > 0 && isOpen(row, col - 1)) {
-                    uf.union(xyTo1D(row, col), xyTo1D(row, col - 1));
-                }
             }
+
+            if (row == N - 1) {
+                uf.union(xyTo1D(row, col), uf.find(N * N + 1));
+            }
+
+            if (row + 1 < N && isOpen(row + 1, col)) {
+                uf.union(xyTo1D(row, col), xyTo1D(row + 1, col));
+            }
+            if (row - 1 >= 0 && isOpen(row - 1, col)) {
+                uf.union(xyTo1D(row, col), xyTo1D(row - 1, col));
+            }
+            if (col + 1 < N && isOpen(row, col + 1)) {
+                uf.union(xyTo1D(row, col), xyTo1D(row, col + 1));
+            }
+            if (col - 1 >= 0 && isOpen(row, col - 1)) {
+                uf.union(xyTo1D(row, col), xyTo1D(row, col - 1));
+            }
+
         }
     }
 
@@ -82,5 +83,7 @@ public class Percolation {
         return uf.connected(uf.find(N * N), uf.find(N * N + 1));
     }
 
+    public static void main(String[] args) {
 
+    }
 }
