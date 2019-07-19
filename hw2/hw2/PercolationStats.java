@@ -4,10 +4,11 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
-    private int[] results;
+    private double[] results;
     public PercolationStats(int N, int T, PercolationFactory pf) {
         //perform T independent experiments on an N-by-N grid
-        results = new int[T];
+        if (N < 0) { throw new IllegalArgumentException("N should be positive!"); }
+        results = new double[T];
         for (int t = 0; t < T; t++) {
             Percolation perc = pf.make(N);
             while (!perc.percolates()) {
@@ -15,7 +16,7 @@ public class PercolationStats {
                 int col = StdRandom.uniform(N);
                 perc.open(row, col);
             }
-            results[t] = perc.numberOfOpenSites();
+            results[t] = (perc.numberOfOpenSites() * 1.0) / (N * N);
         }
 
     }
