@@ -5,10 +5,12 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
     private double[] results;
+    private double T;
     public PercolationStats(int N, int T, PercolationFactory pf) {
         //perform T independent experiments on an N-by-N grid
         if (N < 0) { throw new IllegalArgumentException("N should be positive!"); }
         results = new double[T];
+        this.T = T;
         for (int t = 0; t < T; t++) {
             Percolation perc = pf.make(N);
             while (!perc.percolates()) {
@@ -31,11 +33,11 @@ public class PercolationStats {
     }
     public double confidenceLow() {
         // low endpoint of 95% confidence interval
-        return mean() - stddev() / 1.96;
+        return mean() - stddev() * 1.96 / Math.sqrt(T);
     }
     public double confidenceHigh() {
         // high endpoint of 95% confidence interval
-        return mean() + stddev() / 1.96;
+        return mean() + stddev() * 1.96 / Math.sqrt(T);
     }
 
 //    public static void main(String[] args) {
