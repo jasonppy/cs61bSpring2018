@@ -124,13 +124,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        int min = leftIndex(index);
+        int left = leftIndex(index);
         int right = rightIndex(index);
-        if (getNode(min) == null && getNode(right) == null) { return; }
-
-        if (getNode(right) != null && getNode(min).myPriority > getNode(right).myPriority) {
-            min = right;
-        }
+        if (getNode(left) == null) { return; }
+        int min = min(left, right);
         if (getNode(index).myPriority > getNode(min).myPriority) {
             swap(index, min);
             sink(min);
@@ -150,7 +147,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         /* TODO: Your code here! */
         size++;
-        contents[size] = new ArrayHeap<T>.Node(item, priority);
+        contents[size] = new Node(item, priority);
         swim(size);
 
     }
@@ -218,16 +215,19 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     }
 
     private int checkEquals(T item, int index) {
-        if (index == size + 1) { return 0; }
-        if (getNode(index).item().equals(item)) { return index; }
+        if (getNode(index) == null) { return 0; }
+        if (getNode(index) != null && getNode(index).item().equals(item)) { return index; }
 
         int resultLeft = checkEquals(item, leftIndex(index));
         if (resultLeft > 0) { return resultLeft; }
-
-        int resultRight = checkEquals(item, rightIndex(index));
-        if (resultRight > 0) { return resultRight; }
-
-        return 0;
+        else {
+            int resultRight = checkEquals(item, rightIndex(index));
+            if (resultRight > 0) {
+                return resultRight;
+            } else {
+                return 0;
+            }
+        }
     }
 
     /**
