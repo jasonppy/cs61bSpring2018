@@ -108,8 +108,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         /** TODO: Your code here. */
-        while (getNode(parentIndex(index)) != null &&
-                getNode(index).myPriority < getNode(parentIndex(index)).myPriority) {
+        while (index > 1 && min(index, parentIndex(index)) == index) {
             swap(index, parentIndex(index));
             index = parentIndex(index);
         }
@@ -128,7 +127,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         int right = rightIndex(index);
         if (getNode(left) == null) { return; }
         int min = min(left, right);
-        if (getNode(index).myPriority > getNode(min).myPriority) {
+        if (min(index, min) == min)) {
             swap(index, min);
             sink(min);
         }
@@ -178,7 +177,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         T min = contents[size].item();
         contents[size] = null;
         size--;
-        sink(1);
+        if (size > 0) { sink(1); }
         return min;
     }
 
@@ -201,34 +200,44 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
-        int result = checkEquals(item, 1);
-        if (result == 0) {
-            return;
-        }
-        getNode(result).myPriority = priority;
-        if (priority < getNode(parentIndex(result)).priority()) { swim(result); }
-        else if (priority > getNode(leftIndex(result)).priority() ||
-                priority > getNode(rightIndex(result)).priority()) {
-            sink(result);
-        }
-    }
-
-    private int checkEquals(T item, int index) {
-        if (getNode(index) == null) { return 0; }
-        if (getNode(index) != null && getNode(index).item().equals(item)) { return index; }
-
-        int resultLeft = checkEquals(item, leftIndex(index));
-        if (resultLeft > 0) { return resultLeft; }
-        else {
-            int resultRight = checkEquals(item, rightIndex(index));
-            if (resultRight > 0) {
-                return resultRight;
-            } else {
-                return 0;
+        for (int i = 1; i <= size; i++) {
+            if (contents[i].item().equals(item)) {
+                contents[i].myPriority = priority;
+                swim(i);
+                sink(i);
+                break;
             }
         }
     }
+//    public void changePriority(T item, double priority) {
+//        /* TODO: Your code here! */
+//        int result = checkEquals(item, 1);
+//        if (result == 0) {
+//            return;
+//        }
+//        getNode(result).myPriority = priority;
+//        if (priority < getNode(parentIndex(result)).priority()) { swim(result); }
+//        else if (priority > getNode(leftIndex(result)).priority() ||
+//                priority > getNode(rightIndex(result)).priority()) {
+//            sink(result);
+//        }
+//    }
+
+//    private int checkEquals(T item, int index) {
+//        if (getNode(index) == null) { return 0; }
+//        if (getNode(index) != null && getNode(index).item().equals(item)) { return index; }
+//
+//        int resultLeft = checkEquals(item, leftIndex(index));
+//        if (resultLeft > 0) { return resultLeft; }
+//        else {
+//            int resultRight = checkEquals(item, rightIndex(index));
+//            if (resultRight > 0) {
+//                return resultRight;
+//            } else {
+//                return 0;
+//            }
+//        }
+//    }
 
     /**
      * Prints out the heap sideways. Provided for you.
