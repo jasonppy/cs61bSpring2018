@@ -98,7 +98,7 @@ public class Board implements WorldState{
     public boolean equals(Object o) {
         if (this == o) { return true; }
 
-        if (o == null || o.getClass() != this.getClass()) { return false; }
+        if (o == null || o.getClass() != this.getClass() || ((Board) o).N != this.N) { return false; }
 
         Board that = (Board) o;
         for (int i = 0; i < N; i++) {
