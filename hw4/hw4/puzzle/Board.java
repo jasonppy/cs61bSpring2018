@@ -108,10 +108,20 @@ public class Board implements WorldState{
         }
         return true;
     }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                hash = hash * 31 + tileAt(i, j);
+            }
+        }
+        return hash;
+    }
 
     /** Returns the string representation of the board.
       * Uncomment this method. */
-    /*public String toString() {
+    public String toString() {
         StringBuilder s = new StringBuilder();
         int N = size();
         s.append(N + "\n");
@@ -123,6 +133,6 @@ public class Board implements WorldState{
         }
         s.append("\n");
         return s.toString();
-    }*/
+    }
 
 }
