@@ -36,8 +36,9 @@ public class RadixSort {
      */
     private static void sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
+        String[] copy = asciis.clone();
         int[] counts = new int[256];
-        for (String item: asciis) {
+        for (String item: copy) {
             if (item.length() <= index) {
                 counts[0]++;
                 continue;
@@ -48,19 +49,17 @@ public class RadixSort {
         int pos = 0;
         for (int i = 0; i < counts.length; i++) {
             starts[i] = pos;
-            pos += starts[i];
+            pos += counts[i];
         }
-        String[] sorted = new String[asciis.length];
-        for (String item: asciis) {
+        for (String item: copy) {
             if (item.length() <= index) {
-                sorted[starts[0]] = item;
+                asciis[starts[0]] = item;
                 starts[0]++;
                 continue;
             }
-            sorted[starts[(int) item.charAt(index)]] = item;
+            asciis[starts[(int) item.charAt(index)]] = item;
             starts[(int) item.charAt(index)]++;
         }
-        asciis = sorted;
     }
 
     /**
@@ -76,5 +75,14 @@ public class RadixSort {
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
+    }
+
+    public static void main(String[] args) {
+        String[] s = new String[]{"123", "124", "5", "721", "32"};
+        // 5 32 721 123 124
+        // 5 32 721 123 124
+        // 123 124 32 5 721
+        String[] sorted = sort(s);
+
     }
 }
